@@ -1,0 +1,85 @@
+<html>
+<head>
+	<title>
+		To Do list
+	</title>
+	<style>
+		table, th, td {
+		   border: 1px solid black;
+		   text-align: center;
+		}
+		table{
+		   width: 100%;
+			direction: ltr;
+		}
+		.check {
+			width:5%;
+		}
+		a {
+			color: Red;
+			cursor:pointer;
+		}
+		
+	</style>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
+	<script>
+			var taskNumberArray = [];
+			for(var i = 1; i <= 100; i++){
+				taskNumberArray.push(i);
+			}
+			var taskCounter=0;
+			function addNewTask(){
+				
+				var taskTitle=prompt('Enter new task title ');
+				if(taskTitle) {
+					$('#appendtask').append('<tr id="RemoveId-'+taskNumberArray[taskCounter]+'">\
+												<td>\
+													<input name="task[]" type="checkbox" />\
+												</td>\
+												<td>\
+													'+taskTitle+'\
+												</td>\
+												<td>\
+													 <a id="removeTask" onclick="removeTask('+taskNumberArray[taskCounter]+');" >Remove Task </a>\
+												</td>\
+											</tr>');
+					taskCounter=taskCounter+1;						
+				}else{
+					alert("Invalid Task Name");
+				}
+			}
+			function removeTask(id){
+					$('#RemoveId-'+id).remove();
+			}
+		
+</script>
+	
+</head>
+<body>
+	<table class="table">
+		<tr>
+			<td>
+			Ali Shahi To Do list Project - <a id="addNewTask" onclick="addNewTask();" >Add New Task </a>
+			</td>
+		</tr>
+	</table>
+	<table class="table">
+		<tr>
+			<th class="check">
+			 #
+			</th>
+			<th >
+			 Title
+			</th>
+			<th class="check">
+			 Tools
+			</th>
+		</tr>
+		<tbody id="appendtask">
+			
+		</tbody>
+	</table>
+</body>
+
+</head>
+</html>
