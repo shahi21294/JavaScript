@@ -83,7 +83,7 @@ toDo.prototype.removeTask = function() {
 
 var lists = {};
 
-lists.work = lists.work || new toDo().init();
+lists = new toDo().init();
 
 	function showHide(type) {
 		if(type=='all'){
