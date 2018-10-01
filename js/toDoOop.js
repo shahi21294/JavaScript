@@ -1,6 +1,7 @@
 var toDo = function() {
 	this.input = document.getElementById('addNewTask');
 	this.todos = JSON.parse(localStorage.getItem('taskJson') || '[]');
+	console.log(this.todos );
 	this.showTask = function() {
 			var tBody = document.getElementById("appendtask");
 				while (tBody.firstChild) {
@@ -39,7 +40,7 @@ var toDo = function() {
 				newTdThree.appendChild(a);
 				a.appendChild(img);
 				checkBox.addEventListener("change", this.doneTask(this.todos[i].value));
-				a.addEventListener("click",this.removeTask);
+				a.addEventListener("click",this.removeTask(this.todos[i].value));
 				checkBox.type="checkbox";
 				a.className="removeTask";
 				label.className="container";
@@ -94,10 +95,16 @@ toDo.prototype.doneTask = function(toDoName) {
 		list.showTask();
 	}
 }
-toDo.prototype.removeTask = function() {
-		var taskRow=this.parentNode.parentNode;
-		var tbody=taskRow.parentNode;
-		tbody.removeChild(taskRow);
+toDo.prototype.removeTask = function(toDoName) {
+		var list = this;
+		return function() {
+			var found = list.getTaskByName(toDoName);
+			list.todos.splice(2, 1);
+			localStorage.setItem("taskJson", JSON.stringify(list.todos));
+			list.showTask();
+		}
+
+		
 }
 var lists = {};
 lists = new toDo().init();
