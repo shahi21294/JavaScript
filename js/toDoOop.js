@@ -99,7 +99,7 @@ toDo.prototype.removeTask = function(toDoName) {
 		var list = this;
 		return function() {
 			var found = list.getTaskByName(toDoName);
-			list.todos.splice(2, 1);
+			list.todos.splice(found, 1);
 			localStorage.setItem("taskJson", JSON.stringify(list.todos));
 			list.showTask();
 		}
