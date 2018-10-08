@@ -65,13 +65,15 @@ var toDo = function() {
 					a.className="removeTask";
 					label.className="container";
 					img.src="img/cross.png";
-					document.getElementById("addNewTask").value = "";
+					
 				}
 		 }
+		
 	};
 	this.addTask = function(entry,userID) {
 		this.todos.push({ userID:userID, value: entry,state: '0'});
 		localStorage.setItem("taskJson", JSON.stringify(this.todos));
+		document.getElementById("addNewTask").value = "";
 	};
 	
 	this.getTaskByName = function(name) {
@@ -83,15 +85,15 @@ var toDo = function() {
 };
 toDo.prototype.addNewTask = function() {
 		var list = this;
-		this.input.addEventListener('keydown', function(e) {
+		var input = document.getElementById("addNewTask");
+		input.addEventListener('keydown', function(e) {
 			if(e.keyCode === 13 ) {
 				if(e.target.value.length > 0) {
 					var userID=localStorage.getItem('loginID');
 					list.addTask(e.target.value,userID);
 					list.showTask();
-					e.target.value = null;
 				}else{
-					alert("Invalid Task Name");
+					console.log("Invalid Task Name");
 				}        
 			}
 		  });
@@ -122,16 +124,16 @@ toDo.prototype.removeTask = function(toDoName) {
 };
 function init() {
 		var user=localStorage.getItem('loginID');
-		if (user != "null") {
+		if (user !== "null") {
 			document.getElementById("loginShow").style.display = "none";
 			document.getElementById("taskShow").style.display = "block";
 			document.getElementById("userWelcome").innerHTML = user;
 			new toDo().showTask();
+			new toDo().addNewTask();
 		} else {
 		   document.getElementById("loginShow").style.display = "block";
 		   document.getElementById("taskShow").style.display = "none";
 		}
-		new toDo().addNewTask();
 		document.getElementById("login").addEventListener("click", login);
 }  
 init();
@@ -140,9 +142,10 @@ function login() {
 	var userName = document.getElementById('user').value;
 	var password = document.getElementById('pass').value;
 	if(user || pass){
-		if(checkUser(userName,password)!=0){
+		if(checkUser(userName,password)!==0){
 			localStorage.setItem("loginID", userName);
 			init();
+			
 		}else{
 			alert("Invalid UserName and Password");
 		}  
@@ -150,6 +153,7 @@ function login() {
 		alert("Invalid UserName and Password");
 	}   
 }
+
 function logout() {	
 	localStorage.setItem("loginID", null);
 	init();
