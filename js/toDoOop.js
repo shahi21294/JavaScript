@@ -72,20 +72,6 @@
 			}        
 		}
 	});
-	function init() {
-		var userID=localStorage.getItem('loginID');
-		if (getUserByID(userID)) {
-			document.getElementById("loginShow").style.display = "none";
-			document.getElementById("taskShow").style.display = "block";
-			document.getElementById("userWelcome").innerHTML = getUserByID(userID);
-			document.getElementById("logout").addEventListener("click", logout);	
-			showTask();
-		} else {
-		   document.getElementById("login").addEventListener("click", login);	
-		   document.getElementById("loginShow").style.display = "block";
-		   document.getElementById("taskShow").style.display = "none";
-		}
-	}
 	function showTask() {
 			var tBody = document.getElementById("appendtask");
 				while (tBody.firstChild) {
@@ -132,10 +118,23 @@
 					a.className="removeTask";
 					label.className="container";
 					img.src="img/cross.png";
-					
 				}
 		 }
 	};	
+	function init() {
+		var userID=localStorage.getItem('loginID');
+		if (getUserByID(userID)) {
+			document.getElementById("loginShow").style.display = "none";
+			document.getElementById("taskShow").style.display = "block";
+			document.getElementById("userWelcome").innerHTML = getUserByID(userID);
+			document.getElementById("logout").addEventListener("click", logout);	
+			showTask();
+		} else {
+		   document.getElementById("login").addEventListener("click", login);	
+		   document.getElementById("loginShow").style.display = "block";
+		   document.getElementById("taskShow").style.display = "none";
+		}
+	}
 	function login() {	
 		var userName = document.getElementById('user').value;
 		var password = document.getElementById('pass').value;
