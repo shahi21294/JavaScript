@@ -185,10 +185,10 @@
 			break;
 		}
 	}
-	function showHideTaskByType(type) {
+	function showHideTaskByType(type,displayStyle) {
 		var element=document.getElementsByClassName(type);
 		for (var i=0;i<element.length;i+=1){
-			element[i].style.display = 'table-row';
+			element[i].style.display = displayStyle;
 		}
 	}
 	init();
