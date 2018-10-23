@@ -69,7 +69,7 @@
 				createTask(e.target.value);
 				init();
 			}else{
-				alert("Invalid Task Name");
+				errorMessage(2);
 			}        
 		}
 	});
@@ -160,6 +160,9 @@
 		switch (errorCode){
 			case 1: 
 				alert("Invalid UserName and Password");
+			break;
+			case 2: 
+				alert("Invalid Task Name");
 			break;
 		}
 	}
