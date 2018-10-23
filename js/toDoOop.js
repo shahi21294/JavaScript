@@ -7,7 +7,6 @@
 	function createTask(taskName){
 		todos.push({userID:getCurrenttUser(),value:taskName,is_completed: '0'});
 		localStorage.setItem("taskJson", JSON.stringify(todos));
-		
 		document.querySelector("#addNewTask").value = "";
 	}
 	function getCurrenttUser(){
@@ -74,6 +73,7 @@
 			}        
 		}
 	});
+	
 	function destroyTask(){
 		var tBody = document.getElementById("appendTask");
 		while (tBody.firstChild) {
@@ -82,10 +82,10 @@
 	}
 	function showTask() {
 			destroyTask();
-			var userTask =  todos.filter(function(taskObject) {
+			var getUserTask =  todos.filter(function(taskObject) {
 				return taskObject.userID == getCurrenttUser();
 			});
-			for( var i = 0, len = userTask.length; i < len; i++ ){
+			for( var i = 0, len = getUserTask.length; i < len; i++ ){
 					var d1 = document.getElementById('appendTask');
 					var newRow=document.createElement("tr");
 					var newTdOne=document.createElement("td");
@@ -98,17 +98,17 @@
 					var spanTwo=document.createElement("span");
 					var label=document.createElement("label");
 					var strike=document.createElement("strike");
-					var taskName=document.createTextNode(userTask[i].value);
+					var taskName=document.createTextNode(getUserTask[i].value);
 					d1.appendChild(newRow);
 					newRow.appendChild(newTdOne);
 					newTdOne.appendChild(checkBox);
 					newRow.appendChild(newTdTwo);
 					newTdTwo.appendChild(spanTwo);
-					if(userTask[i].is_completed==='0'){
+					if(getUserTask[i].is_completed==='0'){
 						spanTwo.appendChild (taskName);
 						newRow.className="all active";
 						checkBox.checked = false;
-					}else if(userTask[i].is_completed==='1'){
+					}else if(getUserTask[i].is_completed==='1'){
 						spanTwo.appendChild (strike);
 						strike.appendChild (taskName);
 						newRow.className="all complete";
@@ -117,8 +117,8 @@
 					newRow.appendChild(newTdThree);
 					newTdThree.appendChild(a);
 					a.appendChild(img);
-					checkBox.addEventListener("change", changeTaskStatus(userTask[i].value));
-					a.addEventListener("click",removeTask(userTask[i].value));
+					checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
+					a.addEventListener("click",removeTask(getUserTask[i].value));
 					checkBox.type="checkbox";
 					a.className="removeTask";
 					label.className="container";
@@ -138,19 +138,30 @@
 		   document.getElementById("taskShow").style.display = "none";
 		}
 	}
-	function login() {	
-		var userName = document.getElementById('user').value;
-		var password = document.getElementById('pass').value;
+	function login() {
+		var fields = getUserNameAndPasswordInput().split('-');
 		if(user || pass){
-			if(getUserID(userName,password)!==0){
-				localStorage.setItem("loginID", getUserID(userName,password));
+			if(getUserID(fields[0],fields[1])!==0){
+				localStorage.setItem("loginID", getUserID(fields[0],fields[1]));
 				init();
 			}else
-				alert("Invalid UserName and Password");
+				errorMessage(1);
 		}else{
-				alert("Invalid UserName and Password");
+				errorMessage(1);
 		}  
 			
+	}
+	function getUserNameAndPasswordInput(){
+		var userName = document.getElementById('user').value;
+		var password = document.getElementById('pass').value;
+		return userName+'-'+password;
+	}
+	function errorMessage(errorCode){
+		switch (errorCode){
+			case 1: 
+				alert("Invalid UserName and Password");
+			break;
+		}
 	}
 	function logout() {	
 		localStorage.setItem("loginID", "null");
