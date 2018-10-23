@@ -140,7 +140,7 @@
 	}
 	function login() {
 		var fields = getUserNameAndPasswordInput().split('-');
-		if(user || pass){
+		if(fields[0] || fields[1]){
 			if(getUserID(fields[0],fields[1])!==0){
 				localStorage.setItem("loginID", getUserID(fields[0],fields[1]));
 				init();
@@ -171,7 +171,6 @@
 		init();
 	}
 	function filterTask(type) {
-		
 		switch (type){
 			case "all": 
 				showHideTaskByType("all","table-row");
