@@ -3,7 +3,6 @@
 	var todos = JSON.parse(localStorage.getItem('taskJson') || '[]');
 	var users=[{ ID:101, userName: "ali",password: "123456"},{ ID:102, userName: "reza",password: "123456"}];
 	
-	
 	function createTask(taskName){
 		todos.push({userID:getCurrenttUser(),value:taskName,is_completed: '0'});
 		localStorage.setItem("taskJson", JSON.stringify(todos));
@@ -27,7 +26,7 @@
 		}
 	}
 	function getTaskByName(name) {
-	for( var i = 0, len = todos.length; i < len; i++ ){
+		for( var i = 0, len = todos.length; i < len; i++ ){
 				 if(todos[i].value === name )
 					 return i;
 		}
@@ -73,13 +72,45 @@
 			}        
 		}
 	});
-	
 	function destroyTask(){
 		var tBody = document.getElementById("appendTask");
 		while (tBody.firstChild) {
 			tBody.removeChild(tBody.firstChild);
 		}
 	}
+	function showTask() {
+			destroyTask();
+			var getUserTask =  todos.filter(function(taskObject) {
+				return taskObject.userID == getCurrenttUser();
+			});
+			var ulBody = document.getElementById('appendTask');
+			for( var i = 0, len = getUserTask.length; i < len; i++ ){
+					var li=document.createElement("li");
+					var checkBox=document.createElement("input");
+					var label=document.createElement("label");
+					var img=document.createElement("img");
+					var taskName=document.createTextNode(getUserTask[i].value);
+					ulBody.appendChild(li);
+					li.appendChild(checkBox);
+					li.appendChild(label);
+					li.appendChild(img);
+					label.appendChild (taskName);
+					checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
+					img.addEventListener("click",removeTask(getUserTask[i].value));
+					checkBox.type="checkbox";
+					img.className="removeTask";
+					img.src="img/cross.png";
+					if(getUserTask[i].is_completed==='0'){
+						checkBox.checked = false;
+						li.className="all active";
+					}else if(getUserTask[i].is_completed==='1'){
+						label.style["text-decoration"] = "line-through";
+						checkBox.checked = true;
+						li.className="all complete";
+					}
+		 }
+	}
+	/*
 	function showTask() {
 			destroyTask();
 			var getUserTask =  todos.filter(function(taskObject) {
@@ -125,6 +156,7 @@
 					img.src="img/cross.png";
 		 }
 	}
+	*/
 	function init() {
 		if (getUserByID()) {
 			document.getElementById("loginShow").style.display = "none";
@@ -173,15 +205,17 @@
 	function filterTask(type) {
 		switch (type){
 			case "all": 
-				showHideTaskByType("all","table-row");
+				showHideTaskByType("all","block");
 			break;
 			case "complete" : 
-				showHideTaskByType("complete","table-row");
 				showHideTaskByType("all","none");
+				showHideTaskByType("complete","block");
+				
 			break;
 			case "active" :
-				showHideTaskByType("active","table-row");
 				showHideTaskByType("all","none");
+				showHideTaskByType("active","block");
+				
 			break;
 		}
 	}
