@@ -1,5 +1,5 @@
-		table { 
-			width: 750px; 
+		table{ 
+			width: 450px; 
 			border-collapse: collapse; 
 			margin:10px auto;
 			}
@@ -105,11 +105,6 @@
 			width: 40%;
 			border-radius: 50%;
 		}
-
-		.container {
-			padding: 16px;
-		}
-
 		span.psw {
 			float: right;
 			padding-top: 16px;
@@ -123,4 +118,41 @@
 			.cancelbtn {
 			   width: 100%;
 			}
+		}
+		.container {
+			padding: 16px;
+			display: block;
+			width: 400px;
+			margin: 100px auto 0;
+		}
+		ul {
+		  margin: 0;
+		  padding: 0;
+		}
+		li * {
+		  float: left;
+		}
+		li label{
+		  margin-left:30px;
+		}
+		li img{
+		  float:right;
+		}
+		li {
+		  overflow: hidden;
+		  padding: 20px 0;
+		  border-bottom: 1px solid #eee;
+		  clear:both;
+		  list-style:none;
+		}
+		li > input[type="checkbox"] {
+		  margin: 0 10px;
+		  position: relative;
+		  top: 15px;
+		}
+		li > label {
+		  font-size: 18px;
+		  line-height: 40px;
+		  width: 237px;
+		  padding: 0 0 0 11px;
 		}
