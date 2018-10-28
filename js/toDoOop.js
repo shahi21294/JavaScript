@@ -83,53 +83,39 @@
 	});
 	function showTask() {
 			var ulBody = document.getElementById('appendTask');
-			destroyTask();
 				for( var i = 0, len = getUserTask.length; i < len; i++ ){
 					if(getUserTask[i].is_completed==='0')
-						generateInCompleteTaskUI(i);
+						generateTaskUI(getUserTask[i],false);
 					else if(getUserTask[i].is_completed==='1'){
-						generateCompleteTaskUI(i);
+						generateTaskUI(getUserTask[i],true);
 				}
 			}
 	}
-	function generateCompleteTaskUI(taskIndex) {
+	function generateTaskUI(taskTitle,isComplete) {
 			var li=document.createElement("li");
 			var checkBox=document.createElement("input");
 			var label=document.createElement("label");
 			var img=document.createElement("img");
-			var taskName=document.createTextNode(getUserTask[i].value);
+			var taskName=document.createTextNode(taskInd);
 			ulBody.appendChild(li);
 			li.appendChild(checkBox);
 			li.appendChild(label);
 			li.appendChild(img);
 			label.appendChild (taskName);
-			checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
-			img.addEventListener("click",removeTask(getUserTask[i].value));
+			checkBox.addEventListener("change", changeTaskStatus(taskTitle));
+			img.addEventListener("click",removeTask(taskTitle));
 			checkBox.type="checkbox";
 			img.className="removeTask";
 			img.src="img/cross.png";
 			label.style["text-decoration"] = "line-through";
-			checkBox.checked = true;
-			li.className="all complete";
-	}
-	function generateInCompleteTaskUI(taskIndex) {
-			var li=document.createElement("li");
-			var checkBox=document.createElement("input");
-			var label=document.createElement("label");
-			var img=document.createElement("img");
-			var taskName=document.createTextNode(getUserTask[i].value);
-			ulBody.appendChild(li);
-			li.appendChild(checkBox);
-			li.appendChild(label);
-			li.appendChild(img);
-			label.appendChild (taskName);
-			checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
-			img.addEventListener("click",removeTask(getUserTask[i].value));
-			checkBox.type="checkbox";
-			img.className="removeTask";
-			img.src="img/cross.png";
-			checkBox.checked = false;
-			li.className="all active";
+			if(isComplete){
+				label.style["text-decoration"] = "line-through";
+				checkBox.checked = true;
+				li.className="all complete";
+			}else{
+				checkBox.checked = false;
+				li.className="all active";
+			}
 	}
 	function init() {
 		if (getUserByID()) {
