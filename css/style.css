@@ -156,3 +156,6 @@
 		  width: 237px;
 		  padding: 0 0 0 11px;
 		}
+		.complete > label {
+			text-decoration :line-through;
+		}
