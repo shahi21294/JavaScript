@@ -78,11 +78,10 @@
 			tBody.removeChild(tBody.firstChild);
 		}
 	}
-	function showTask() {
-			destroyTask();
-			var getUserTask =  todos.filter(function(taskObject) {
+	var getUserTask =  todos.filter(function(taskObject) {
 				return taskObject.userID == getCurrenttUser();
-			});
+	});
+	function showTask() {
 			var ulBody = document.getElementById('appendTask');
 			for( var i = 0, len = getUserTask.length; i < len; i++ ){
 					var li=document.createElement("li");
@@ -110,59 +109,13 @@
 					}
 		 }
 	}
-	/*
-	function showTask() {
-			destroyTask();
-			var getUserTask =  todos.filter(function(taskObject) {
-				return taskObject.userID == getCurrenttUser();
-			});
-			for( var i = 0, len = getUserTask.length; i < len; i++ ){
-					var d1 = document.getElementById('appendTask');
-					var newRow=document.createElement("tr");
-					var newTdOne=document.createElement("td");
-					var newTdTwo=document.createElement("td");
-					var newTdThree=document.createElement("td");
-					var checkBox=document.createElement("input");
-					var a=document.createElement("a");
-					var img=document.createElement("img");
-					var spanOne=document.createElement("span");
-					var spanTwo=document.createElement("span");
-					var label=document.createElement("label");
-					var strike=document.createElement("strike");
-					var taskName=document.createTextNode(getUserTask[i].value);
-					d1.appendChild(newRow);
-					newRow.appendChild(newTdOne);
-					newTdOne.appendChild(checkBox);
-					newRow.appendChild(newTdTwo);
-					newTdTwo.appendChild(spanTwo);
-					if(getUserTask[i].is_completed==='0'){
-						spanTwo.appendChild (taskName);
-						newRow.className="all active";
-						checkBox.checked = false;
-					}else if(getUserTask[i].is_completed==='1'){
-						spanTwo.appendChild (strike);
-						strike.appendChild (taskName);
-						newRow.className="all complete";
-						checkBox.checked = true;
-					}
-					newRow.appendChild(newTdThree);
-					newTdThree.appendChild(a);
-					a.appendChild(img);
-					checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
-					a.addEventListener("click",removeTask(getUserTask[i].value));
-					checkBox.type="checkbox";
-					a.className="removeTask";
-					label.className="container";
-					img.src="img/cross.png";
-		 }
-	}
-	*/
 	function init() {
 		if (getUserByID()) {
 			document.getElementById("loginShow").style.display = "none";
 			document.getElementById("taskShow").style.display = "block";
 			document.getElementById("userWelcome").innerHTML = getUserByID();
 			document.getElementById("logout").addEventListener("click", logout);	
+			destroyTask();
 			showTask();
 		} else {
 		   document.getElementById("login").addEventListener("click", login);	
