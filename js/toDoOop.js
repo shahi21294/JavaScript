@@ -83,31 +83,53 @@
 	});
 	function showTask() {
 			var ulBody = document.getElementById('appendTask');
-			for( var i = 0, len = getUserTask.length; i < len; i++ ){
-					var li=document.createElement("li");
-					var checkBox=document.createElement("input");
-					var label=document.createElement("label");
-					var img=document.createElement("img");
-					var taskName=document.createTextNode(getUserTask[i].value);
-					ulBody.appendChild(li);
-					li.appendChild(checkBox);
-					li.appendChild(label);
-					li.appendChild(img);
-					label.appendChild (taskName);
-					checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
-					img.addEventListener("click",removeTask(getUserTask[i].value));
-					checkBox.type="checkbox";
-					img.className="removeTask";
-					img.src="img/cross.png";
-					if(getUserTask[i].is_completed==='0'){
-						checkBox.checked = false;
-						li.className="all active";
-					}else if(getUserTask[i].is_completed==='1'){
-						label.style["text-decoration"] = "line-through";
-						checkBox.checked = true;
-						li.className="all complete";
-					}
-		 }
+			destroyTask();
+				for( var i = 0, len = getUserTask.length; i < len; i++ ){
+					if(getUserTask[i].is_completed==='0')
+						generateInCompleteTaskUI(i);
+					else if(getUserTask[i].is_completed==='1'){
+						generateCompleteTaskUI(i);
+				}
+			}
+	}
+	function generateCompleteTaskUI(taskIndex) {
+			var li=document.createElement("li");
+			var checkBox=document.createElement("input");
+			var label=document.createElement("label");
+			var img=document.createElement("img");
+			var taskName=document.createTextNode(getUserTask[i].value);
+			ulBody.appendChild(li);
+			li.appendChild(checkBox);
+			li.appendChild(label);
+			li.appendChild(img);
+			label.appendChild (taskName);
+			checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
+			img.addEventListener("click",removeTask(getUserTask[i].value));
+			checkBox.type="checkbox";
+			img.className="removeTask";
+			img.src="img/cross.png";
+			label.style["text-decoration"] = "line-through";
+			checkBox.checked = true;
+			li.className="all complete";
+	}
+	function generateInCompleteTaskUI(taskIndex) {
+			var li=document.createElement("li");
+			var checkBox=document.createElement("input");
+			var label=document.createElement("label");
+			var img=document.createElement("img");
+			var taskName=document.createTextNode(getUserTask[i].value);
+			ulBody.appendChild(li);
+			li.appendChild(checkBox);
+			li.appendChild(label);
+			li.appendChild(img);
+			label.appendChild (taskName);
+			checkBox.addEventListener("change", changeTaskStatus(getUserTask[i].value));
+			img.addEventListener("click",removeTask(getUserTask[i].value));
+			checkBox.type="checkbox";
+			img.className="removeTask";
+			img.src="img/cross.png";
+			checkBox.checked = false;
+			li.className="all active";
 	}
 	function init() {
 		if (getUserByID()) {
